@@ -1,25 +1,20 @@
-describe('Testando o componente <App.js />', () => {
-  it('Teste se o topo da aplicação contém um conjunto fixo de links de navegação.',
+describe('Testando o componente <About.js />', () => {
+  it('Teste se a página contém as informações sobre a Pokédex.',
     () => {
 
     });
 
-  it('Teste se a aplicação é redirecionada para a página inicial, na URL / ao clicar no link Home da barra de navegação.',
+  it('Teste se a página contém um heading h2 com o texto About Pokédex.',
     () => {
 
     });
 
-  it('Teste se a aplicação é redirecionada para a página de About, na URL /about, ao clicar no link About da barra de navegação.',
+  it('Teste se a página contém dois parágrafos com texto sobre a Pokédex.',
     () => {
 
     });
 
-  it('Teste se a aplicação é redirecionada para a página de Pokémons Favoritados, na URL /favorites, ao clicar no link Favorite Pokémons da barra de navegação.',
-    () => {
-
-    });
-
-  it('Teste se a aplicação é redirecionada para a página Not Found ao entrar em uma URL desconhecida.',
+  it('Teste se a página contém a seguinte imagem de uma Pokédex: https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png.',
     () => {
 
     });
