@@ -21,5 +21,12 @@ describe('Teste o componente <NotFound.js />', () => {
   it('Teste se página mostra a imagem https://media.giphy.com/media/kNSeTs31XBZ3G/giphy.gif.',
     () => {
       const { history } = renderWithRouter(<App />);
+
+      history.push('/pagina/que-nao-existe');
+
+      const image = screen.getByAltText(/Pikachu crying because the page requested/,
+        / was not found/);
+
+      expect(image).toHaveAttribute('src', 'https://media.giphy.com/media/kNSeTs31XBZ3G/giphy.gif');
     });
 });
