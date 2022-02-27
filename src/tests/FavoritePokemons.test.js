@@ -12,11 +12,33 @@ describe('Teste o componente <FavoritePokemons.js />', () => {
     const { history } = renderWithRouter(<App />);
 
     history.push('/favorites');
-    expect.stringContaining('No favorite pokemon found');
+
+    const message = screen.getByText('No favorite pokemon found');
+
+    expect(message).toBeInTheDocument();
   });
 
   it('Teste se é exibido todos os cards de pokémons favoritados.',
     () => {
-      renderWithRouter(<App />);
+      const { history } = renderWithRouter(<App />);
+
+      history.push('/pokemons/25');
+
+      let favLabel = screen.getByLabelText('Pokémon favoritado?');
+
+      userEvent.click(favLabel);
+
+      history.replace('/pokemons/10');
+
+      favLabel = screen.getByLabelText('Pokémon favoritado?');
+
+      userEvent.click(favLabel);
+
+      history.replace('/favorites');
+
+      const totalFavPokemons = screen.getAllByTestId('pokemon-name').length;
+      const NUMBER_TWO = 2;
+
+      expect(totalFavPokemons).toBe(NUMBER_TWO);
     });
 });
