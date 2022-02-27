@@ -9,6 +9,11 @@ describe('Teste o componente <Pokedex.js />', () => {
   it('Teste se página contém um heading h2 com o texto Encountered pokémons.',
     () => {
       renderWithRouter(<App />);
+
+      const encounteredTitle = screen.getByRole('heading', {
+        name: 'Encountered pokémons', level: 2 });
+
+      expect(encounteredTitle).toBeInTheDocument();
     });
 
   it(`Teste se é exibido o próximo Pokémon da lista
