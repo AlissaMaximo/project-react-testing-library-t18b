@@ -23,7 +23,14 @@ describe('Testando o componente <About.js />', () => {
 
   it('Teste se a página contém um heading h2 com o texto About Pokédex.',
     () => {
+      renderWithRouter(<App />);
+      const { history } = renderWithRouter(<App />);
 
+      history.push('/about');
+
+      const aboutEl = screen.getByRole('link', { name: 'About Pokédex' });
+
+      expect(aboutEl).toBeInTheDocument();
     });
 
   it('Teste se a página contém dois parágrafos com texto sobre a Pokédex.',
