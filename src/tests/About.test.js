@@ -28,7 +28,7 @@ describe('Testando o componente <About.js />', () => {
 
       history.push('/about');
 
-      const aboutEl = screen.getByRole('link', { name: 'About Pokédex' });
+      const aboutEl = screen.getByRole('heading', { name: 'About Pokédex', level: 2 });
 
       expect(aboutEl).toBeInTheDocument();
     });
