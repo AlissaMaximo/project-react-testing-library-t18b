@@ -53,6 +53,12 @@ describe('Testando o componente <About.js />', () => {
 
   it('Teste se a página contém a seguinte imagem de uma Pokédex: https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png.',
     () => {
+      const { history } = renderWithRouter(<App />);
 
+      history.push('/about');
+
+      const pokedexImage = screen.getByAltText('Pokédex');
+
+      expect(pokedexImage).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png');
     });
 });
