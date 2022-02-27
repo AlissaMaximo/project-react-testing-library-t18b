@@ -60,5 +60,7 @@ describe('Testando o componente <About.js />', () => {
       const pokedexImage = screen.getByAltText('Pokédex');
 
       expect(pokedexImage).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png');
+
+      // Referência: https://stackoverflow.com/questions/60509527/jestreact-native-testing-library-how-to-test-an-image-src
     });
 });
