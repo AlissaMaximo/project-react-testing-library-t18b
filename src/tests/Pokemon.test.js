@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
+/* import userEvent from '@testing-library/user-event';
+ */import renderWithRouter from '../renderWithRouter';
 
 import App from '../App';
 
@@ -9,6 +9,15 @@ describe('Teste o componente <Pokemon.js />', () => {
   it('Teste se é renderizado um card com as informações de determinado pokémon.',
     () => {
       renderWithRouter(<App />);
+      const pikachuName = screen.getByTestId('pokemon-name').innerHTML;
+      const pikachuType = screen.getByTestId('pokemon-type').innerHTML;
+      const pikachuWeight = screen.getByTestId('pokemon-weight').innerHTML;
+      const pikachuImg = screen.getByAltText('Pikachu sprite');
+
+      expect(pikachuName).toBe('Pikachu');
+      expect(pikachuType).toBe('Electric');
+      expect(pikachuWeight).toBe('Average weight: 6.0 kg');
+      expect(pikachuImg).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/b/b2/Spr_5b_025_m.png');
     });
 
   it(`Teste se o card do Pokémon indicado na Pokédex contém um
