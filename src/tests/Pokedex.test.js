@@ -7,6 +7,7 @@ import App from '../App';
 
 describe('Teste o componente <Pokedex.js />', () => {
   const pokemonName = 'pokemon-name';
+  const nextPokemon = 'Próximo pokémon';
 
   it('Teste se página contém um heading h2 com o texto Encountered pokémons.',
     () => {
@@ -24,7 +25,7 @@ describe('Teste o componente <Pokedex.js />', () => {
     renderWithRouter(<App />);
     const NUMBER_NINE = 9;
     const NUMBER_TEN = 10;
-    const nextPokemonButton = screen.getByRole('button', { name: 'Próximo pokémon' });
+    const nextPokemonButton = screen.getByRole('button', { name: nextPokemon });
     expect(nextPokemonButton).toBeInTheDocument();
 
     let currentPokemon = screen.getByTestId(pokemonName).innerHTML;
@@ -50,7 +51,7 @@ describe('Teste o componente <Pokedex.js />', () => {
       renderWithRouter(<App />);
 
       const NUMBER_EIGHT = 8;
-      const nextPokemonButton = screen.getByRole('button', { name: 'Próximo pokémon' });
+      const nextPokemonButton = screen.getByRole('button', { name: nextPokemon });
       expect(nextPokemonButton).toBeInTheDocument();
 
       let currentPokemonAmount = screen.getAllByTestId(pokemonName).length;
@@ -119,5 +120,17 @@ describe('Teste o componente <Pokedex.js />', () => {
   it('Teste se a Pokédex contém um botão para resetar o filtro.',
     () => {
       renderWithRouter(<App />);
+      const NUMBER_NINE = 9;
+      const pikachu = screen.getByTestId(pokemonName).innerHTML;
+      const allButton = screen.getByRole('button', { name: 'All' });
+      const nextPokemonButton = screen.getByRole('button', { name: nextPokemon });
+      expect(allButton).toBeInTheDocument();
+
+      for (let i = 0; i < NUMBER_NINE; i += 1) {
+        userEvent.click(nextPokemonButton);
+      }
+
+      const curPokemon = screen.getByTestId(pokemonName).innerHTML;
+      expect(curPokemon).toBe(pikachu);
     });
 });
