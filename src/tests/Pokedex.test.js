@@ -65,20 +65,55 @@ describe('Teste o componente <Pokedex.js />', () => {
         pokesPerPages.push(currentPokemonAmount);
       }
 
-      let onePokemonOnly = true;
+      const onlyOne = pokesPerPages.every((amount) => amount === 1);
 
-      pokesPerPages.forEach((amount) => {
-        if (amount !== 1) {
-          onePokemonOnly = false;
-        }
-      });
-
-      expect(onePokemonOnly).toBe(true);
+      expect(onlyOne).toBe(true);
     });
 
   it('Teste se a Pokédex tem os botões de filtro.',
     () => {
       renderWithRouter(<App />);
+      const NUMBER_EIGHT = 8;
+      const NUMBER_SEVEN = 7;
+      /* 1º círculo */
+      let correctType = true;
+      const types = [
+        'All', 'Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
+      const buttons = screen.getAllByRole('button');
+      const typesButtonsTexts = [];
+
+      buttons.forEach((button, i) => {
+        if (i < NUMBER_EIGHT) {
+          typesButtonsTexts.push(button.innerHTML);
+        }
+      });
+
+      typesButtonsTexts.forEach((typeButtonText, i) => {
+        if (typeButtonText !== types[i]) {
+          correctType = false;
+        }
+      });
+
+      expect(correctType).toBe(true);
+
+      /* 2º, 3º e 4º círculos */
+      const areCorrectTypes = [];
+      const isAllPresent = [];
+      for (let i = 1; i < NUMBER_EIGHT; i += 1) {
+        userEvent.click(buttons[i]); // clica apenas em tipo específico
+        const curType = screen.getAllByTestId('pokemon-type'); // pega todos os pokemons na página e cada tipo
+        areCorrectTypes
+          .push(curType.every((pokemon) => pokemon.innerHTML === buttons[i].innerHTML)); // verifica se o tipo do pokemon é igual ao tipo do botão.
+
+        const allButton = screen.getByRole('button', { name: 'All' });
+        if (allButton.innerHTML === 'All') {
+          isAllPresent.push('true');
+        }
+      }
+
+      const areAllTrue = areCorrectTypes.every((bool) => bool === true);
+      expect(areAllTrue).toBe(true);
+      expect(isAllPresent.length).toBe(NUMBER_SEVEN);
     });
 
   it('Teste se a Pokédex contém um botão para resetar o filtro.',
