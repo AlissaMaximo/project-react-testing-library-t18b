@@ -25,6 +25,10 @@ describe('Teste o componente <Pokemon.js />', () => {
    O link deve possuir a URL /pokemons/<id>, onde <id> é o id do Pokémon exibido;`,
   () => {
     renderWithRouter(<App />);
+    const pikachuLink = screen.getByRole('link', {
+      name: 'More details', src: '/pokemons/25' });
+
+    expect(pikachuLink).toBeInTheDocument();
   });
 
   it(`Teste se ao clicar no link de navegação do Pokémon,
