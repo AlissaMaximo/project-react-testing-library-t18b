@@ -6,6 +6,8 @@ import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
 describe('Teste o componente <Pokedex.js />', () => {
+  const pokemonName = 'pokemon-name';
+
   it('Teste se página contém um heading h2 com o texto Encountered pokémons.',
     () => {
       renderWithRouter(<App />);
@@ -25,14 +27,14 @@ describe('Teste o componente <Pokedex.js />', () => {
     const nextPokemonButton = screen.getByRole('button', { name: 'Próximo pokémon' });
     expect(nextPokemonButton).toBeInTheDocument();
 
-    let currentPokemon = screen.getByTestId('pokemon-name').innerHTML;
+    let currentPokemon = screen.getByTestId(pokemonName).innerHTML;
     const pokemons = [];
 
     pokemons.push(currentPokemon);
 
     for (let i = 0; i < NUMBER_NINE; i += 1) {
       userEvent.click(nextPokemonButton);
-      currentPokemon = screen.getByTestId('pokemon-name').innerHTML;
+      currentPokemon = screen.getByTestId(pokemonName).innerHTML;
       pokemons.push(currentPokemon);
     }
 
@@ -46,6 +48,32 @@ describe('Teste o componente <Pokedex.js />', () => {
   it('Teste se é mostrado apenas um Pokémon por vez.',
     () => {
       renderWithRouter(<App />);
+
+      const NUMBER_EIGHT = 8;
+      const nextPokemonButton = screen.getByRole('button', { name: 'Próximo pokémon' });
+      expect(nextPokemonButton).toBeInTheDocument();
+
+      let currentPokemonAmount = screen.getAllByTestId(pokemonName).length;
+
+      const pokesPerPages = [];
+
+      pokesPerPages.push(currentPokemonAmount);
+
+      for (let i = 0; i < NUMBER_EIGHT; i += 1) {
+        userEvent.click(nextPokemonButton);
+        currentPokemonAmount = screen.getAllByTestId(pokemonName).length;
+        pokesPerPages.push(currentPokemonAmount);
+      }
+
+      let onePokemonOnly = true;
+
+      pokesPerPages.forEach((amount) => {
+        if (amount !== 1) {
+          onePokemonOnly = false;
+        }
+      });
+
+      expect(onePokemonOnly).toBe(true);
     });
 
   it('Teste se a Pokédex tem os botões de filtro.',
