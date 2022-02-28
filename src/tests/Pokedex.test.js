@@ -78,19 +78,12 @@ describe('Teste o componente <Pokedex.js />', () => {
       const NUMBER_SEVEN = 7;
       /* 1º círculo */
       let correctType = true;
-      const types = [
-        'All', 'Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
+      const types = ['Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
       const buttons = screen.getAllByRole('button');
-      const typesButtonsTexts = [];
-
-      buttons.forEach((button, i) => {
-        if (i < NUMBER_EIGHT) {
-          typesButtonsTexts.push(button.innerHTML);
-        }
-      });
+      const typesButtonsTexts = screen.getAllByTestId('pokemon-type-button');
 
       typesButtonsTexts.forEach((typeButtonText, i) => {
-        if (typeButtonText !== types[i]) {
+        if (typeButtonText.innerHTML !== types[i]) {
           correctType = false;
         }
       });
@@ -132,5 +125,13 @@ describe('Teste o componente <Pokedex.js />', () => {
 
       const curPokemon = screen.getByTestId(pokemonName).innerHTML;
       expect(curPokemon).toBe(pikachu);
+
+      userEvent.click(allButton);
+      for (let i = 0; i < NUMBER_NINE; i += 1) {
+        userEvent.click(nextPokemonButton);
+      }
+
+      const curPokemon2 = screen.getByTestId(pokemonName).innerHTML;
+      expect(curPokemon2).toBe(pikachu);
     });
 });
