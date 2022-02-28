@@ -20,10 +20,27 @@ describe('Teste o componente <Pokedex.js />', () => {
    quando o botão Próximo pokémon é clicado.`,
   () => {
     renderWithRouter(<App />);
-
+    const NUMBER_NINE = 9;
+    const NUMBER_TEN = 10;
     const nextPokemonButton = screen.getByRole('button', { name: 'Próximo pokémon' });
-
     expect(nextPokemonButton).toBeInTheDocument();
+
+    let currentPokemon = screen.getByTestId('pokemon-name').innerHTML;
+    const pokemons = [];
+
+    pokemons.push(currentPokemon);
+
+    for (let i = 0; i < NUMBER_NINE; i += 1) {
+      userEvent.click(nextPokemonButton);
+      currentPokemon = screen.getByTestId('pokemon-name').innerHTML;
+      pokemons.push(currentPokemon);
+    }
+
+    const firstPikachu = pokemons[0];
+    const secondPikachu = pokemons[9];
+
+    expect(pokemons.length).toBe(NUMBER_TEN);
+    expect(firstPikachu).toBe(secondPikachu);
   });
 
   it('Teste se é mostrado apenas um Pokémon por vez.',
